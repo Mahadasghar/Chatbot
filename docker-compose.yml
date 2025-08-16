@@ -20,6 +20,7 @@ services:
       - PYTHONPATH=/app
       - PYTHONUNBUFFERED=1
       - PYTHONDONTWRITEBYTECODE=1
+      - POSTGRES_HOST=db
 
   db:
     image: postgres:13
