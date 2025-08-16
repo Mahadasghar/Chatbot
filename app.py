@@ -665,6 +665,12 @@ def ask_question():
             return jsonify({"answer": response_text})
 
         else:
+            # Store the user's message first to ensure it's in the history
+            cur.execute(
+                "INSERT INTO chat_history (chat_session_id, user_id, sender, message, created_at) VALUES (%s, %s, %s, %s, NOW())",
+                (session_id, session['user_id'], "user", message)
+            )
+            conn.commit()  # Commit the user message immediately
             # Handle normal chat with or without PDF context
             if file_context:
                 print("Using file context for response")  # Debug log

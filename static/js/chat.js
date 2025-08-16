@@ -20,6 +20,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const removeFileBtn = attachmentPreview?.querySelector('.remove-file');
     const profileBtn = document.getElementById('profile-btn');
 
+    // Event delegation for dynamically added suggestion prompts
+    chatBody.addEventListener('click', function(e) {
+        const suggestion = e.target.closest('.suggestion');
+        if (suggestion) {
+            const promptText = suggestion.getAttribute('data-prompt');
+            if (promptText) {
+                setInput(promptText);
+            }
+        }
+    });
     // Add session storage variables
     let isNewLogin = !sessionStorage.getItem('wasLoggedIn');
     sessionStorage.setItem('wasLoggedIn', 'true');
@@ -654,16 +664,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 <h1 class="welcome-title">AI Assistant</h1>
                 <p class="welcome-subtitle">Ask me anything about code, concepts, or general knowledge</p>
                 <div class="suggestions">
-                    <div class="suggestion" onclick="setInput('Explain the concept of machine learning in simple terms')">
+                    <div class="suggestion" data-prompt="Explain the concept of machine learning in simple terms">
                         <p>"Explain the concept of machine learning in simple terms"</p>
                     </div>
-                    <div class="suggestion" onclick="setInput('Write a Python function that checks if a string is a palindrome')">
+                    <div class="suggestion" data-prompt="Write a Python function that checks if a string is a palindrome">
                         <p>"Write a Python function that checks if a string is a palindrome"</p>
                     </div>
-                    <div class="suggestion" onclick="setInput('How do I optimize the performance of a web application?')">
+                    <div class="suggestion" data-prompt="How do I optimize the performance of a web application?">
                         <p>"How do I optimize the performance of a web application?"</p>
                     </div>
-                    <div class="suggestion" onclick="setInput('Create a simple CSS animation for a button hover effect')">
+                    <div class="suggestion" data-prompt="Create a simple CSS animation for a button hover effect">
                         <p>"Create a simple CSS animation for a button hover effect"</p>
                     </div>
                 </div>
